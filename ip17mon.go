@@ -72,10 +72,11 @@ type Locator struct {
 }
 
 type LocationInfo struct {
-	Country string
-	Region  string
-	City    string
-	Isp     string
+	Country string `json:"country"`
+	Region  string `json:"region"`
+	City    string `json:"city"`
+	Isp     string `json:"isp"`
+	Ip      string `json:"ip"`
 }
 
 // Find locationInfo by ip string
@@ -87,6 +88,7 @@ func (loc *Locator) Find(ipstr string) (info *LocationInfo, err error) {
 		return
 	}
 	info = loc.FindByUint(binary.BigEndian.Uint32([]byte(ip)))
+	info.Ip = ipstr
 	return
 }
 
